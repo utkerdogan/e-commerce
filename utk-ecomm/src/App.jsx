@@ -1,13 +1,13 @@
 import './App.css'
+import { Layout } from './layout/Layout'
+import { Home } from './pages/Home'
 
 function App() {
 
   return (
-    <div className="flex justify-center  w-screen">
-      <h1 className="text-3xl font-bold text-red-700 underline">
-      Hello world!
-    </h1>
-    </div>
+    <Layout>
+      <Home />
+    </Layout>
   )
 }
 
