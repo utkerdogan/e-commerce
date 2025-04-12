@@ -73,19 +73,19 @@ export function Home() {
         
         <SecCarousel />
         {/*PART OF THE NEURAL UNIVERSE SECTION*/} 
-        <section class="bg-white w-full flex flex-col-reverse md:flex-row items-center justify-evenly">
-            <div class="w-full md:w-1/2 mt-4 md:h-full md:mt-0">
-                <img src="https://picsum.photos/400/300?random=13" alt="Banner" class="w-full h-auto object-cover" />
+        <section className="bg-white w-full flex flex-col-reverse md:flex-row items-center justify-evenly">
+            <div className="w-full md:w-1/2 mt-4 md:h-full md:mt-0">
+                <img src="https://picsum.photos/400/300?random=13" alt="Banner" className="w-full h-auto object-cover" />
             </div>
 
-            <div class="flex justify-center items-center px-4 w-full md:w-2/5">
-                <div class="w-full md:w-1/2 text-center md:text-left mt-6 md:mt-0">
-                <p class="text-sm text-gray-500 uppercase">Summer 2020</p>
-                <h2 class="text-3xl font-bold text-gray-900 mt-2 mb-4">Part of the Neural Universe</h2>
-                <p class="text-gray-700 mb-6">We know how large objects will act, but things on a small scale.</p>
-                <div class="flex flex-col md:flex-row gap-4 items-center ">
-                    <button class="bg-blue-400 text-white rounded-md hover:bg-blue-700 md:bg-green-500">Buy Now</button>
-                    <button class="bg-white border-blue-600 text-blue-600 rounded-md hover:bg-blue-200 md:border-green-500 md:text-green-500">Learn More</button>
+            <div className="flex justify-center items-center px-4 w-full md:w-2/5">
+                <div className="w-full md:w-1/2 text-center md:text-left mt-6 md:mt-0">
+                <p className="text-sm text-gray-500 uppercase">Summer 2020</p>
+                <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">Part of the Neural Universe</h2>
+                <p className="text-gray-700 mb-6">We know how large objects will act, but things on a small scale.</p>
+                <div className="flex flex-col md:flex-row gap-4 items-center ">
+                    <button className="bg-blue-400 text-white rounded-md hover:bg-blue-700 md:bg-green-500">Buy Now</button>
+                    <button className="bg-white border-blue-600 text-blue-600 rounded-md hover:bg-blue-200 md:border-green-500 md:text-green-500">Learn More</button>
                 </div>
                 </div>
 
