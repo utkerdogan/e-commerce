@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Facebook, Heart, Instagram, Menu, Search, ShoppingCart, Twitter, User, X, Youtube } from "lucide-react";
+import { ChevronDown, Facebook, Heart, Instagram, Mail, Menu, Phone, Search, ShoppingCart, Twitter, User, X, Youtube } from "lucide-react";
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -8,9 +8,9 @@ export function Header() {
     return (
         <div className="w-full">
             <div className="hidden md:flex justify-between items-center text-sm bg-slate-900 text-white px-8 py-2">
-                <div>
-                    <span>(543) 207-9657</span>
-                    <span> utukerdogan@gmail.com</span>
+                <div className="flex">
+                    <span className="flex pr-6"><Phone className="mr-2 w-4"/>(543) 207-9657</span>
+                    <span className="flex pl-6"> <Mail className="mr-2 w-4"/>utukerdogan@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <span>Follow Us and get a chance to win 80% off</span>
@@ -29,7 +29,34 @@ export function Header() {
 
                 <nav className="hidden md:flex gap-6 text-gray-700 bg-white">
                     <a href="#">Home</a>
-                    <a href="#">Shop</a>
+                    <div className="group shop-dropdown flex">
+                        <a href="#" className="flex cursor-pointer">Shop <ChevronDown /></a>
+                        
+                        <div className="absolute w-64 bg-white opacity-0 mt-8 group-hover:opacity-100 invisible group-hover:visible  duration-300 z-10">
+                        <div className="grid grid-cols-2 p-4">
+                            <div>
+                            <h3 className="font-semibold mb-4">Kadın</h3>
+                            <ul>
+                                <li><a href="#">Bags</a></li>
+                                <li><a href="#">Belts</a></li>
+                                <li><a href="#">Cosmetics</a></li>
+                                <li><a href="#">Bags</a></li>
+                                <li><a href="#">Hats</a></li>
+                            </ul>
+                            </div>
+                            <div>
+                            <h3 className="font-semibold mb-4">Erkek</h3>
+                            <ul>
+                                <li><a href="#">Bags</a></li>
+                                <li><a href="#">Belts</a></li>
+                                <li><a href="#">Cosmetics</a></li>
+                                <li><a href="#">Bags</a></li>
+                                <li><a href="#">Hats</a></li>
+                            </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                     <a href="#">About</a>
                     <a href="#">Blog</a>
                     <a href="#">Contact</a>

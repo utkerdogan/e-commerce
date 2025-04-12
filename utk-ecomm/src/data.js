@@ -12,21 +12,35 @@ export const products = new Array(8).fill({
     colors: ["bg-cyan-500", "bg-orange-500", "bg-teal-500", "bg-blue-500"],
 });
 
-export const slides = [
+export const posts = [
     {
-        title: "Vita Classic Product",
-        subtitle: "Summer 2020",
-        description:
-            "We know how large objects will act. We know how are objects will act. We know",
-        price: "$16.48",
-        bgImage: "https://picsum.photos/800/300?random=10",
-        },
-        {
-        title: "Modern Chair",
-        subtitle: "Spring 2020",
-        description:
-            "Elegant design and comfortable experience, tailored for your needs.",
-        price: "$29.99",
-        bgImage: "https://picsum.photos/800/300?random=11",
-        },
+        id: 1,
+        image: "https://picsum.photos/800/300?random=14",
+        title: "Loudest à la Madison #1 (L’Integral)",
+        description: "We focus on ergonomics and meeting you where you work. It’s only a keystroke away.",
+        date: "22 April 2021",
+        comments: 10,
+        tags: ["Google", "Trending", "New"],
+        isNew: true,
+    },
+    {
+        id: 2,
+        image: "https://picsum.photos/800/300?random=15",
+        title: "Loudest à la Madison #1 (L’Integral)",
+        description: "We focus on ergonomics and meeting you where you work. It’s only a keystroke away.",
+        date: "22 April 2021",
+        comments: 12,
+        tags: ["Google", "Trending", "New"],
+        isNew: true,
+    },
+    {
+        id: 3,
+        image: "https://picsum.photos/800/300?random=16",
+        title: "Loudest à la Madison #1 (L’Integral)",
+        description: "We focus on ergonomics and meeting you where you work. It’s only a keystroke away.",
+        date: "22 April 2021",
+        comments: 14,
+        tags: ["Google", "Trending", "New"],
+        isNew: true,
+    },
 ];

@@ -1,6 +1,6 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChartArea, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import React, { useState } from "react";
-import { images, products } from "../data";
+import { posts, products } from "../data";
 import { MainCarousel } from "../components/MainCarousel";
 import { SecCarousel } from "../components/SecCarousel";
 
@@ -16,7 +16,7 @@ export function Home() {
         <section className="px-4 py-6 bg-gray-200">
             <div className="text-center mb-8">
                 
-                <p className="hidden md:flex justify-center mb-4 text-gray-500">Featured Products</p>
+                <p className="hidden justify-center mb-4 text-gray-500">Featured Products</p>
                 <h2 className="text-lg font-bold text-black">EDITOR'S PICK</h2>
                 <p className="text-sm text-gray-500">Problems trying to resolve the conflict between</p>
             </div>
@@ -71,10 +71,76 @@ export function Home() {
             </div>
         </section>
         
-        <section className="flex justify-center items-center relative w-full h-screen">
         <SecCarousel />
-        </section>
+        {/*PART OF THE NEURAL UNIVERSE SECTION*/} 
+        <section class="bg-white w-full flex flex-col-reverse md:flex-row items-center justify-evenly">
+            <div class="w-full md:w-1/2 mt-4 md:h-full md:mt-0">
+                <img src="https://picsum.photos/400/300?random=13" alt="Banner" class="w-full h-auto object-cover" />
+            </div>
 
+            <div class="flex justify-center items-center px-4 w-full md:w-2/5">
+                <div class="w-full md:w-1/2 text-center md:text-left mt-6 md:mt-0">
+                <p class="text-sm text-gray-500 uppercase">Summer 2020</p>
+                <h2 class="text-3xl font-bold text-gray-900 mt-2 mb-4">Part of the Neural Universe</h2>
+                <p class="text-gray-700 mb-6">We know how large objects will act, but things on a small scale.</p>
+                <div class="flex flex-col md:flex-row gap-4 items-center ">
+                    <button class="bg-blue-400 text-white rounded-md hover:bg-blue-700 md:bg-green-500">Buy Now</button>
+                    <button class="bg-white border-blue-600 text-blue-600 rounded-md hover:bg-blue-200 md:border-green-500 md:text-green-500">Learn More</button>
+                </div>
+                </div>
+
+            </div>
+        </section>
+        
+        {/*FEATURED POSTS SECTION*/} 
+        <section className="bg-white py-12 px-4 md:px-8">
+            <div className="text-center mb-10">
+                <p className="text-sm text-blue-500 font-bold mb-2">PRACTICE ADVICE</p>
+                <h2 className="text-3xl font-bold text-gray-900">Featured Posts</h2>
+                <p className="text-gray-600 mt-2">
+                Problems trying to resolve the conflict between the two major realms of classical physics.
+                </p>
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-center gap-8 mx-auto max-w-6xl">
+                {posts.map((post) => (
+                <div key={post.id} className="bg-white border rounded-lg shadow-sm overflow-hidden">
+                    <div className="relative">
+                    <img src={post.image} alt={post.title} className="w-full h-52 object-cover" />
+                    {post.isNew && (
+                        <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                        NEW
+                        </span>
+                    )}
+                    </div>
+                    <div className="p-4">
+                    <div className="text-xs text-gray-500 mb-2 space-x-2">
+                        {post.tags.map((tag, index) => (
+                        <span key={index}>{tag}</span>
+                        ))}
+                    </div>
+                    <h3 className="font-semibold text-lg text-gray-800 mb-2">{post.title}</h3>
+                    <p className="text-sm text-gray-600 mb-4">{post.description}</p>
+                    <div className="flex justify-between items-center text-gray-500 mb-4 space-x-2">
+                        <div className="flex items-center">
+                            <Clock color="#0055ff" className="w-4 h-4 mr-1"/>
+                            <span>{post.date}</span>
+                        </div>
+                        <div className="flex items-center ">
+                        <ChartArea color="#008009" className="w-4 h-4 mr-1"/>
+                        <span>{post.comments} comments</span>
+                        </div>
+                        
+                    </div>
+                    <a href="#" className="text-gray-500 font-semibold hover:underline flex">
+                        Learn More 
+                        <ChevronRight className="text-sm text-blue-600" />
+                    </a>
+                    </div>
+                </div>
+                ))}
+            </div>
+        </section>
         </>
     );
 }
