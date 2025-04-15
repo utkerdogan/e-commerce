@@ -1,3 +1,11 @@
+import {
+    faAmazon,
+    faLyft,
+    faStripe,
+    faRedditAlien,
+    faPiedPiperHat,
+} from "@fortawesome/free-brands-svg-icons";
+
 export const images = [
     "https://picsum.photos/800/300?random=1",
     "https://picsum.photos/800/300?random=2",
@@ -76,4 +84,13 @@ export const categories = [
         items: 5,
         image: "https://picsum.photos/600/800?random=5",
     },
+];
+
+
+export const logos = [
+    { icon: faLyft,},
+    { icon: faStripe},
+    { icon: faPiedPiperHat},
+    { icon: faAmazon},
+    { icon: faRedditAlien},
 ];
