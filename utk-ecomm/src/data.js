@@ -44,3 +44,36 @@ export const posts = [
         isNew: true,
     },
 ];
+
+export const categories = [
+    {
+        id: 1,
+        title: "CLOTHS",
+        items: 5,
+        image: "https://picsum.photos/600/800?random=1",
+    },
+    {
+        id: 2,
+        title: "CLOTHS",
+        items: 5,
+        image: "https://picsum.photos/600/800?random=2",
+    },
+    {
+        id: 3,
+        title: "CLOTHS",
+        items: 5,
+        image: "https://picsum.photos/600/800?random=3",
+    },
+    {
+        id: 4,
+        title: "CLOTHS",
+        items: 5,
+        image: "https://picsum.photos/600/800?random=4",
+    },
+    {
+        id: 5,
+        title: "CLOTHS",
+        items: 5,
+        image: "https://picsum.photos/600/800?random=5",
+    },
+];

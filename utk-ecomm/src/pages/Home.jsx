@@ -1,5 +1,5 @@
-import { ChartArea, ChevronLeft, ChevronRight, Clock } from "lucide-react";
-import React, { useState } from "react";
+import { ChartArea,  ChevronRight, Clock } from "lucide-react";
+import React from "react";
 import { posts, products } from "../data";
 import { MainCarousel } from "../components/MainCarousel";
 import { SecCarousel } from "../components/SecCarousel";
@@ -11,7 +11,6 @@ export function Home() {
     return (
         <>
         <MainCarousel />
-        
         {/*EDITOR'S PICK SECTION*/} 
         <section className="px-4 py-6 bg-gray-200">
             <div className="text-center mb-8">

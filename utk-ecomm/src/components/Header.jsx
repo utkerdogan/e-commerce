@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { ChevronDown, Facebook, Heart, Instagram, Mail, Menu, Phone, Search, ShoppingCart, Twitter, User, X, Youtube } from "lucide-react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => setMenuOpen(!menuOpen);
+
+    const history = useHistory();
 
     return (
         <div className="w-full">
@@ -27,10 +30,12 @@ export function Header() {
             <header className="bg-white text-black flex items-center justify-between p-4 border-b md:px-8 md:py-6">
                 <div className="font-bold text-xl md:text-2xl">Bandage</div>
 
-                <nav className="hidden md:flex gap-6 text-gray-700 bg-white">
-                    <a href="#">Home</a>
+                <nav className="hidden md:flex gap-6 bg-white text-blue-500 font-bold">
+                    <span onClick={() => history.push("/")} className="cursor-pointer">Home</span>
                     <div className="group shop-dropdown flex">
-                        <a href="#" className="flex cursor-pointer">Shop <ChevronDown /></a>
+                        <span className="flex cursor-pointer" onClick={() => history.push("/shop")}>
+                            Shop <ChevronDown />
+                        </span>
                         
                         <div className="absolute w-64 bg-white opacity-0 mt-8 group-hover:opacity-100 invisible group-hover:visible  duration-300 z-10">
                         <div className="grid grid-cols-2 p-4">
@@ -57,10 +62,10 @@ export function Header() {
                         </div>
                         </div>
                     </div>
-                    <a href="#">About</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Pages</a>
+                    <span href="#">About</span>
+                    <span href="#">Blog</span>
+                    <span href="#">Contact</span>
+                    <span href="#">Pages</span>
                 </nav>
 
                 <div className="flex items-center gap-4 md:text-blue-600">
