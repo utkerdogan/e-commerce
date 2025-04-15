@@ -28,7 +28,7 @@ export function Header() {
             </div>
 
             <header className="bg-white text-black flex items-center justify-between p-4 border-b md:px-8 md:py-6">
-                <div className="font-bold text-xl md:text-2xl">Bandage</div>
+                <div className="font-bold text-xl md:text-2xl cursor-pointer" onClick={() => history.push("/")}>Bandage</div>
 
                 <nav className="hidden md:flex gap-6 bg-white text-blue-500 font-bold">
                     <span onClick={() => history.push("/")} className="cursor-pointer">Home</span>
@@ -84,10 +84,10 @@ export function Header() {
 
             {menuOpen && (
                 <nav className="flex flex-col md:hidden items-center py-2 gap-2 bg-white">
-                    <a href="#" className="text-gray-600">Home</a>
-                    <a href="#" className="text-gray-600">Product</a>
-                    <a href="#" className="text-gray-600">Pricing</a>
-                    <a href="#" className="text-gray-600">Contact</a>
+                    <span onClick={() => history.push("/")} className="text-gray-600">Home</span>
+                    <span onClick={() => history.push("/shop")} className="text-gray-600">Product</span>
+                    <span className="text-gray-600">Pricing</span>
+                    <span className="text-gray-600">Contact</span>
                 </nav>
             )}
         </div>
