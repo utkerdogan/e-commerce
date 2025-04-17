@@ -64,7 +64,7 @@ export function Header() {
                     </div>
                     <span href="#">About</span>
                     <span href="#">Blog</span>
-                    <span href="#">Contact</span>
+                    <span className="cursor-pointer" onClick={() => history.push("/contact")}>Contact</span>
                     <span href="#">Pages</span>
                 </nav>
 
