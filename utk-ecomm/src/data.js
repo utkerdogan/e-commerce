@@ -4,6 +4,7 @@ import {
     faStripe,
     faRedditAlien,
     faPiedPiperHat,
+    faHooli,
 } from "@fortawesome/free-brands-svg-icons";
 
 export const images = [
@@ -88,9 +89,36 @@ export const categories = [
 
 
 export const logos = [
+    { icon: faHooli,},
     { icon: faLyft,},
     { icon: faStripe},
     { icon: faPiedPiperHat},
     { icon: faAmazon},
     { icon: faRedditAlien},
+];
+
+export const aboutUsStat = [
+    { value: "15K", label: "Happy Customers" },
+    { value: "150K", label: "Monthly Visitors" },
+    { value: "15", label: "Countries Worldwide" },
+    { value: "100+", label: "Top Partners" },
+];
+
+
+export const teamMembers = [
+    {
+        image: "https://picsum.photos/600/800?random=15",
+        username: "Jane Doe",
+        profession: "UI Designer",
+    },
+    {
+        image: "https://picsum.photos/600/800?random=16",
+        username: "Anna Smith",
+        profession: "Frontend Dev",
+    },
+    {
+        image: "https://picsum.photos/600/800?random=17",
+        username: "John Doe",
+        profession: "Backend Dev",
+    },
 ];
