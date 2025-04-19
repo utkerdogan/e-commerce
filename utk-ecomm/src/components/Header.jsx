@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown, Facebook, Heart, Instagram, Mail, Menu, Phone, Search, ShoppingCart, Twitter, User, X, Youtube } from "lucide-react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -30,7 +30,7 @@ export function Header() {
             <header className="bg-white text-black flex items-center justify-between p-4 border-b md:px-8 md:py-6">
                 <div className="font-bold text-xl md:text-2xl cursor-pointer" onClick={() => history.push("/")}>Bandage</div>
 
-                <nav className="hidden md:flex gap-6 bg-white text-blue-500 font-bold">
+                <nav className="hidden md:flex gap-6 bg-white text-gray-600 font-bold">
                     <span onClick={() => history.push("/")} className="cursor-pointer">Home</span>
                     <div className="group shop-dropdown flex">
                         <span className="flex cursor-pointer" onClick={() => history.push("/shop")}>
@@ -62,7 +62,7 @@ export function Header() {
                         </div>
                         </div>
                     </div>
-                    <span href="#">About</span>
+                    <span className="cursor-pointer" onClick={() => history.push("/about-us")}>About</span>
                     <span href="#">Blog</span>
                     <span className="cursor-pointer" onClick={() => history.push("/contact")}>Contact</span>
                     <span href="#">Pages</span>
