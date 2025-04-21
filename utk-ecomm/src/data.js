@@ -108,16 +108,31 @@ export const aboutUsStat = [
 export const teamMembers = [
     {
         image: "https://picsum.photos/600/800?random=15",
-        username: "Jane Doe",
-        profession: "UI Designer",
+        username: "Emre Şahiner",
+        profession: "Project Manager",
     },
     {
         image: "https://picsum.photos/600/800?random=16",
-        username: "Anna Smith",
-        profession: "Frontend Dev",
+        username: "Utku Erdoğan",
+        profession: "Full Stack Dev",
     },
     {
         image: "https://picsum.photos/600/800?random=17",
+        username: "John Doe",
+        profession: "Backend Dev",
+    },
+    {
+        image: "https://picsum.photos/600/800?random=18",
+        username: "John Doe",
+        profession: "Backend Dev",
+    },
+    {
+        image: "https://picsum.photos/600/800?random=19",
+        username: "John Doe",
+        profession: "Backend Dev",
+    },
+    {
+        image: "https://picsum.photos/600/800?random=20",
         username: "John Doe",
         profession: "Backend Dev",
     },
