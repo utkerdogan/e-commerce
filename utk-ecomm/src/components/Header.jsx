@@ -1,31 +1,49 @@
 import React, { useState } from "react";
 import { ChevronDown, Facebook, Heart, Instagram, Mail, Menu, Phone, Search, ShoppingCart, Twitter, User, X, Youtube } from "lucide-react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => setMenuOpen(!menuOpen);
 
     const history = useHistory();
+    const location = useLocation();
+    const pathname = location.pathname;
+
+    const noTopBarPages = ["/about-us", "/contact", "/team"];
+    const noBecomeMemberPages = ["/", "/shop"];
+    const noRegisterPages = ["/about-us", "/team", "/contact"];
+
+    const hideTopBar = noTopBarPages.includes(pathname);
+    const hideBecomeMember = noBecomeMemberPages.includes(pathname);
+    const hideRegister = noRegisterPages.includes(pathname);
 
     return (
         <div className="w-full">
-            <div className="hidden md:flex justify-between items-center text-sm bg-slate-900 text-white px-8 py-2">
+            {!hideTopBar && (
+                <div className="hidden md:flex justify-between items-center text-sm bg-slate-900 text-white px-8 py-2">
                 <div className="flex">
-                    <span className="flex pr-6"><Phone className="mr-2 w-4"/>(543) 207-9657</span>
-                    <span className="flex pl-6"> <Mail className="mr-2 w-4"/>utukerdogan@gmail.com</span>
+                    <span className="flex pr-6">
+                    <Phone className="mr-2 w-4" />
+                    (543) 207-9657
+                    </span>
+                    <span className="flex pl-6">
+                    <Mail className="mr-2 w-4" />
+                    utukerdogan@gmail.com
+                    </span>
                 </div>
                 <div className="flex items-center gap-4">
                     <span>Follow Us and get a chance to win 80% off</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <span>Follow Us :</span>
-                <Instagram />
-                <Youtube />
-                <Facebook />
-                <Twitter />
+                    <Instagram />
+                    <Youtube />
+                    <Facebook />
+                    <Twitter />
                 </div>
-            </div>
+                </div>
+            )}
 
             <header className="bg-white text-black flex items-center justify-between p-4 border-b md:px-8 md:py-6">
                 <div className="font-bold text-xl md:text-2xl cursor-pointer" onClick={() => history.push("/")}>Bandage</div>
@@ -65,16 +83,26 @@ export function Header() {
                     <span className="cursor-pointer" onClick={() => history.push("/about-us")}>About</span>
                     <span href="#">Blog</span>
                     <span className="cursor-pointer" onClick={() => history.push("/contact")}>Contact</span>
-                    <span href="#">Pages</span>
+                    <span className="cursor-pointer" onClick={() => history.push("/team")}>Pages</span>
                 </nav>
 
                 <div className="flex items-center gap-4 md:text-blue-600">
                     
                     <a href="#" className="hidden md:flex"><User className=" hidden md:block text-xs"/>Login</a>
-                    <a href="#" className="hidden md:flex">/ Register</a>
-                    <Search />
-                    <ShoppingCart />
-                    <Heart />
+                    {!hideRegister && ( 
+                        <>
+                            <a href="#" className="hidden md:flex">/ Register</a>
+                            <Search />
+                            <ShoppingCart />
+                            <Heart />
+                        </>
+                    )}
+
+                    {!hideBecomeMember && (
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded hidden md:block">
+                        Become a member
+                        </button>
+                    )}
 
                     <button className="bg-white md:hidden" onClick={toggleMenu}>
                         {menuOpen ? <X /> : <Menu />}

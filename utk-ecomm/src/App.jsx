@@ -5,6 +5,7 @@ import { Shop } from './pages/Shop'
 import { Layout } from './layout/Layout'
 import { Contact } from './pages/Contact'
 import { AboutUs } from './pages/AboutUs'
+import { Team } from './pages/Team'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/shop" component={Shop} />
           <Route path="/contact" component={Contact} />
           <Route path="/about-us" component={AboutUs} />
+          <Route path="/team" component={Team} />
         </Switch>
       </Layout>
     </Router>
