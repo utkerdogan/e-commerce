@@ -1,9 +1,9 @@
 import { ChartArea,  ChevronRight, Clock } from "lucide-react";
 import React from "react";
-import { posts } from "../data";
+import { posts, products } from "../data";
 import { MainCarousel } from "../components/MainCarousel";
 import { SecCarousel } from "../components/SecCarousel";
-import { BestSeller } from "../components/BestSeller";
+import { ProductCard } from "../components/ProductCard";
 
 
 export function Home() {
@@ -50,7 +50,16 @@ export function Home() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">BESTSELLER PRODUCTS</h2>
                 <p className="text-gray-400 text-sm">Problem trying to resolve the conflict between</p>
             </div>
-            <BestSeller />
+
+            <div className="flex flex-col md:grid md:grid-cols-4 gap-6 md:mx-auto max-w-6xl px-10">
+                {products.map((product, index) => (
+                <ProductCard
+                    key={index}
+                    product={product}
+                    imageUrl={`https://picsum.photos/400/500?random=${index + 1}`}
+                />
+                ))}
+            </div>
         </section>
         
         <SecCarousel />

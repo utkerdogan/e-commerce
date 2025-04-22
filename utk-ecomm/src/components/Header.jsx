@@ -15,7 +15,7 @@ export function Header() {
     const noRegisterPages = ["/about-us", "/team", "/contact"];
 
     const hideTopBar = noTopBarPages.includes(pathname);
-    const hideBecomeMember = noBecomeMemberPages.includes(pathname) || pathname.startsWith("/product/");
+    const hideBecomeMember = noBecomeMemberPages.includes(pathname);
     const hideRegister = noRegisterPages.includes(pathname);
 
     return (
