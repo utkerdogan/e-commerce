@@ -67,7 +67,7 @@ export function ProductDetail() {
                             <span className="text-green-600 font-semibold">{product.availability}</span>
                         </p>
                         <p className="text-gray-600 text-sm">{product.description}</p>
-                        <div className="flex gap-2 mt-3">
+                        <div className="flex gap-4 mt-3">
                             {product.colors.map((color, i) => (
                                 <span key={i} className={`w-5 h-5 rounded-full ${color}`}></span>
                             ))}
