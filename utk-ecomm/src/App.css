@@ -7,3 +7,15 @@
 .shop-dropdown li a:hover{
     text-decoration: underline;
 }
+
+.sign-up-form{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    gap: 3px;
+}
+
+.sign-up-form input,select{
+    background: white;
+    border: 2px solid rgb(0, 225, 255);
+}

@@ -10,9 +10,9 @@ export function Header() {
     const location = useLocation();
     const pathname = location.pathname;
 
-    const noTopBarPages = ["/about-us", "/contact", "/team"];
+    const noTopBarPages = ["/about-us", "/contact", "/team", "/signup"];
     const noBecomeMemberPages = ["/", "/shop"];
-    const noRegisterPages = ["/about-us", "/team", "/contact"];
+    const noRegisterPages = ["/about-us", "/team", "/contact","/signup"];
 
     const hideTopBar = noTopBarPages.includes(pathname);
     const hideBecomeMember = noBecomeMemberPages.includes(pathname) || pathname.startsWith("/product/");
@@ -87,11 +87,15 @@ export function Header() {
                 </nav>
 
                 <div className="flex items-center gap-4 md:text-blue-600">
-                    
-                    <a href="#" className="hidden md:flex"><User className=" hidden md:block text-xs"/>Login</a>
                     {!hideRegister && ( 
                         <>
-                            <a href="#" className="hidden md:flex">/ Register</a>
+                            <a onClick={() => history.push("/login")} className="hidden md:flex cursor-pointer"><User className=" hidden md:block text-xs"/>Login</a>
+                        </>
+                    )}
+                    
+                    {!hideRegister && ( 
+                        <>
+                            <a onClick={() => history.push("/signup")} className="hidden md:flex cursor-pointer" >/ Register</a>
                             <Search />
                             <ShoppingCart />
                             <Heart />

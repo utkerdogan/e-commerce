@@ -7,6 +7,7 @@ import { Contact } from './pages/Contact'
 import { AboutUs } from './pages/AboutUs'
 import { Team } from './pages/Team'
 import { ProductDetail } from './pages/ProductDetail'
+import { SignUp } from './pages/SignUp'
 
 function App() {
 
@@ -20,7 +21,8 @@ function App() {
           <Route path="/contact" component={Contact} />
           <Route path="/about-us" component={AboutUs} />
           <Route path="/team" component={Team} />
-          <Route path="/product/:id" component={ProductDetail } />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/product/:id" component={ProductDetail} />
         </Switch>
       </Layout>
     </Router>
