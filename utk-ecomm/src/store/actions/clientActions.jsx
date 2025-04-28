@@ -66,3 +66,28 @@ export const loginUserThunk = (loginData, rememberMe) => async (dispatch) => {
         return Promise.reject(errorMsg);
     }
 };
+
+export const verifyUserThunk = () => async (dispatch) => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) throw new Error('No token found');
+
+        const res = await axiosInstance.get('/verify', {
+            headers: {
+                Authorization: token
+            }
+        });
+
+        const { name, email, role_id } = res.data;
+
+        const user = { name, email, role_id };
+        dispatch(setUser(user));
+
+        localStorage.setItem('token', token);
+
+    } catch (error) {
+        console.error('Verification failed:', error);
+
+        localStorage.removeItem('token');
+    }
+};
