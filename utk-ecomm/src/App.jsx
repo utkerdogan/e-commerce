@@ -8,6 +8,8 @@ import { AboutUs } from './pages/AboutUs'
 import { Team } from './pages/Team'
 import { ProductDetail } from './pages/ProductDetail'
 import { SignUp } from './pages/SignUp'
+import { Login } from './pages/Login'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
 
@@ -22,8 +24,10 @@ function App() {
           <Route path="/about-us" component={AboutUs} />
           <Route path="/team" component={Team} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={Login} />
           <Route path="/product/:id" component={ProductDetail} />
         </Switch>
+        <ToastContainer />
       </Layout>
     </Router>
   )

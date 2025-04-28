@@ -12,10 +12,11 @@ const rootReducer = combineReducers({
     product: productReducer,
     shoppingCart: shoppingCartReducer,
 });
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     rootReducer,
-    applyMiddleware(thunk, logger)
+    composeEnhancers(applyMiddleware(thunk, logger))
+    
 );
 
 export default store;

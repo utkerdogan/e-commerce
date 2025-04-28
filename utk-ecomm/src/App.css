@@ -19,3 +19,14 @@
     background: white;
     border: 2px solid rgb(0, 225, 255);
 }
+
+.logg-in-form{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.log-in-form input,select{
+    background: white;
+    border: 2px solid rgb(0, 225, 255);
+}

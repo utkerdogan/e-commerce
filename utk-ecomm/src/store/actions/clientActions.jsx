@@ -1,3 +1,5 @@
+import { axiosInstance } from '../../api/axiosInstance';
+
 export const SET_USER = 'SET_USER';
 export const SET_ROLES = 'SET_ROLES';
 export const SET_THEME = 'SET_THEME';
@@ -38,4 +40,29 @@ export const fetchRoles = () => {
             }
         }
     };
+};
+
+
+export const loginUserThunk = (loginData, rememberMe) => async (dispatch) => {
+    try {
+        const res = await axiosInstance.post('/login', loginData);
+        const { token, name, email, role_id } = res.data;
+
+        const user = {
+            name,
+            email,
+            role_id,
+        };
+        
+        dispatch(setUser(user));
+
+        if (rememberMe) {
+            localStorage.setItem('token', token);
+        }
+
+        return Promise.resolve();
+    } catch (error) {
+        const errorMsg = error.response?.data?.message || "Login failed!";
+        return Promise.reject(errorMsg);
+    }
 };
