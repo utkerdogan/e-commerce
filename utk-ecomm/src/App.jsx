@@ -10,8 +10,17 @@ import { ProductDetail } from './pages/ProductDetail'
 import { SignUp } from './pages/SignUp'
 import { Login } from './pages/Login'
 import { ToastContainer } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { verifyUserThunk } from './store/actions/clientActions'
 
 function App() {
+
+  const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(verifyUserThunk());
+    }, [dispatch]);
 
   return (
     

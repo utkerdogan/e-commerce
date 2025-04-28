@@ -19,7 +19,7 @@ export function Header() {
 
     const noTopBarPages = ["/about-us", "/contact", "/team", "/signup", "/login"];
     const noBecomeMemberPages = ["/", "/shop"];
-    const noRegisterPages = ["/about-us", "/team", "/contact"];
+    const noRegisterPages = ["/about-us"];
 
     const hideTopBar = noTopBarPages.includes(pathname);
     const hideBecomeMember = noBecomeMemberPages.includes(pathname) || pathname.startsWith("/product/");
@@ -28,7 +28,7 @@ export function Header() {
     const handleLogout = () => {
         dispatch(setUser(null));
         localStorage.removeItem('token');
-        history.push('/login');
+        history.push('/');
     };
 
     return (
