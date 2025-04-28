@@ -1,47 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronDown, Facebook, Heart, Instagram, Mail, Menu, Phone, Search, ShoppingCart, Twitter, User, X, Youtube } from "lucide-react";
 import { useHistory, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../store/actions/clientActions";
+import Gravatar from 'react-gravatar';
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => setMenuOpen(!menuOpen);
 
     const history = useHistory();
+
     const location = useLocation();
     const pathname = location.pathname;
+    const dispatch = useDispatch();
 
-    const noTopBarPages = ["/about-us", "/contact", "/team", "/signup"];
+    const user = useSelector((state) => state.client.user);
+
+    const noTopBarPages = ["/about-us", "/contact", "/team", "/signup", "/login"];
     const noBecomeMemberPages = ["/", "/shop"];
-    const noRegisterPages = ["/about-us", "/team", "/contact","/signup"];
+    const noRegisterPages = ["/about-us", "/team", "/contact"];
 
     const hideTopBar = noTopBarPages.includes(pathname);
     const hideBecomeMember = noBecomeMemberPages.includes(pathname) || pathname.startsWith("/product/");
     const hideRegister = noRegisterPages.includes(pathname);
 
+    const handleLogout = () => {
+        dispatch(setUser(null));
+        localStorage.removeItem('token');
+        history.push('/login');
+    };
+
     return (
         <div className="w-full">
             {!hideTopBar && (
                 <div className="hidden md:flex justify-between items-center text-sm bg-slate-900 text-white px-8 py-2">
-                <div className="flex">
-                    <span className="flex pr-6">
-                    <Phone className="mr-2 w-4" />
-                    (543) 207-9657
-                    </span>
-                    <span className="flex pl-6">
-                    <Mail className="mr-2 w-4" />
-                    utukerdogan@gmail.com
-                    </span>
-                </div>
-                <div className="flex items-center gap-4">
-                    <span>Follow Us and get a chance to win 80% off</span>
-                </div>
-                <div className="flex items-center gap-4">
-                    <span>Follow Us :</span>
-                    <Instagram />
-                    <Youtube />
-                    <Facebook />
-                    <Twitter />
-                </div>
+                    <div className="flex">
+                        <span className="flex pr-6">
+                            <Phone className="mr-2 w-4" />
+                            (543) 207-9657
+                        </span>
+                        <span className="flex pl-6">
+                            <Mail className="mr-2 w-4" />
+                            utukerdogan@gmail.com
+                        </span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <span>Follow Us and get a chance to win 80% off</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <span>Follow Us :</span>
+                        <Instagram />
+                        <Youtube />
+                        <Facebook />
+                        <Twitter />
+                    </div>
                 </div>
             )}
 
@@ -54,48 +67,54 @@ export function Header() {
                         <span className="flex cursor-pointer" onClick={() => history.push("/shop")}>
                             Shop <ChevronDown />
                         </span>
-                        
                         <div className="absolute w-64 bg-white opacity-0 mt-8 group-hover:opacity-100 invisible group-hover:visible  duration-300 z-10">
-                        <div className="grid grid-cols-2 p-4">
-                            <div>
-                            <h3 className="font-semibold mb-4">Kadın</h3>
-                            <ul>
-                                <li><a href="#">Bags</a></li>
-                                <li><a href="#">Belts</a></li>
-                                <li><a href="#">Cosmetics</a></li>
-                                <li><a href="#">Bags</a></li>
-                                <li><a href="#">Hats</a></li>
-                            </ul>
+                            <div className="grid grid-cols-2 p-4">
+                                <div>
+                                    <h3 className="font-semibold mb-4">Kadın</h3>
+                                    <ul>
+                                        <li><a href="#">Bags</a></li>
+                                        <li><a href="#">Belts</a></li>
+                                        <li><a href="#">Cosmetics</a></li>
+                                        <li><a href="#">Bags</a></li>
+                                        <li><a href="#">Hats</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold mb-4">Erkek</h3>
+                                    <ul>
+                                        <li><a href="#">Bags</a></li>
+                                        <li><a href="#">Belts</a></li>
+                                        <li><a href="#">Cosmetics</a></li>
+                                        <li><a href="#">Bags</a></li>
+                                        <li><a href="#">Hats</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div>
-                            <h3 className="font-semibold mb-4">Erkek</h3>
-                            <ul>
-                                <li><a href="#">Bags</a></li>
-                                <li><a href="#">Belts</a></li>
-                                <li><a href="#">Cosmetics</a></li>
-                                <li><a href="#">Bags</a></li>
-                                <li><a href="#">Hats</a></li>
-                            </ul>
-                            </div>
-                        </div>
                         </div>
                     </div>
                     <span className="cursor-pointer" onClick={() => history.push("/about-us")}>About</span>
-                    <span href="#">Blog</span>
+                    <span className="cursor-pointer">Blog</span>
                     <span className="cursor-pointer" onClick={() => history.push("/contact")}>Contact</span>
                     <span className="cursor-pointer" onClick={() => history.push("/team")}>Pages</span>
                 </nav>
 
                 <div className="flex items-center gap-4 md:text-blue-600">
-                    {!hideRegister && ( 
+                    {!hideRegister && (
                         <>
-                            <a onClick={() => history.push("/login")} className="hidden md:flex cursor-pointer"><User className=" hidden md:block text-xs"/>Login</a>
-                        </>
-                    )}
-                    
-                    {!hideRegister && ( 
-                        <>
-                            <a onClick={() => history.push("/signup")} className="hidden md:flex cursor-pointer" >/ Register</a>
+                            {user && user.name ? (
+                                <div className="flex items-center gap-2">
+                                    {user?.email && <Gravatar email={user.email.trim()} size={30} className="rounded-full" />}
+                                    <span>{user?.name || "User"}</span>
+                                    <a onClick={handleLogout} className="text-red-500 cursor-pointer">Logout</a>
+                                </div>
+                                
+                                
+                            ) : (
+                                <>
+                                    <a onClick={() => history.push("/login")} className="hidden md:flex cursor-pointer"><User className=" hidden md:block text-xs"/>Login</a>
+                                    <a onClick={() => history.push("/signup")} className="hidden md:flex cursor-pointer">/ Register</a>
+                                </>
+                            )}
                             <Search />
                             <ShoppingCart />
                             <Heart />
@@ -104,7 +123,7 @@ export function Header() {
 
                     {!hideBecomeMember && (
                         <button className="bg-blue-600 text-white px-4 py-2 rounded hidden md:block">
-                        Become a member
+                            Become a member
                         </button>
                     )}
 
