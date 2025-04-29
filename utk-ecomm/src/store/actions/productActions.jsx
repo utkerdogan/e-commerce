@@ -40,3 +40,16 @@ export const setFilter = (filter) => ({
     type: 'SET_FILTER',
     payload: filter,
 });
+
+export const fetchCategories = () => {
+    return async (dispatch) => {
+        try {
+            const res = await fetch('https://workintech-fe-ecommerce.onrender.com/categories');
+            if (!res.ok) throw new Error('Categories fetch failed');
+            const data = await res.json();
+            dispatch(setCategories(data));
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    };
+};
