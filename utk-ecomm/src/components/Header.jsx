@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { ChevronDown, Facebook, Heart, Instagram, Mail, Menu, Phone, Search, ShoppingCart, Twitter, User, X, Youtube } from "lucide-react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../store/actions/clientActions";
 import Gravatar from 'react-gravatar';
+import { fetchCategories } from "../store/actions/productActions";
 
 export function Header() {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const toggleMenu = () => setMenuOpen(!menuOpen);
 
     const history = useHistory();
 
@@ -15,15 +14,31 @@ export function Header() {
     const pathname = location.pathname;
     const dispatch = useDispatch();
 
-    const user = useSelector((state) => state.client.user);
-
     const noTopBarPages = ["/about-us", "/contact", "/team", "/signup", "/login"];
     const noBecomeMemberPages = ["/", "/shop"];
     const noRegisterPages = ["/about-us"];
-
+    
     const hideTopBar = noTopBarPages.includes(pathname);
     const hideBecomeMember = noBecomeMemberPages.includes(pathname) || pathname.startsWith("/product/");
     const hideRegister = noRegisterPages.includes(pathname);
+
+    const [menuOpen, setMenuOpen] = useState(false);
+    const toggleMenu = () => setMenuOpen(!menuOpen);
+
+    const user = useSelector((state) => state.client.user);
+
+    const categories = useSelector(state => state.product.categories);
+
+    const womenCategories = categories.filter(cat => cat.gender === 'k');
+    const menCategories = categories.filter(cat => cat.gender === 'e');
+
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch]);
+
+    const getGenderPath = (gender) => {
+        return gender === 'k' ? 'kadin' : 'erkek';
+    };
 
     const handleLogout = () => {
         dispatch(setUser(null));
@@ -67,26 +82,36 @@ export function Header() {
                         <span className="flex cursor-pointer" onClick={() => history.push("/shop")}>
                             Shop <ChevronDown />
                         </span>
-                        <div className="absolute w-64 bg-white opacity-0 mt-8 group-hover:opacity-100 invisible group-hover:visible  duration-300 z-10">
+                        <div className="absolute w-64 bg-white opacity-0 mt-8 group-hover:opacity-100 invisible group-hover:visible duration-300 z-10">
                             <div className="grid grid-cols-2 p-4">
                                 <div>
                                     <h3 className="font-semibold mb-4">Kadın</h3>
                                     <ul>
-                                        <li><a href="#">Bags</a></li>
-                                        <li><a href="#">Belts</a></li>
-                                        <li><a href="#">Cosmetics</a></li>
-                                        <li><a href="#">Bags</a></li>
-                                        <li><a href="#">Hats</a></li>
+                                        {womenCategories.map((cat) => (
+                                            <li key={cat.id}>
+                                            <Link
+                                                to={`/shop/${getGenderPath(cat.gender)}/${cat.title.toLowerCase()}/${cat.id}`}
+                                                className="hover:text-pink-500 transition"
+                                            >
+                                                {cat.title}
+                                            </Link>
+                                        </li>
+                                        ))}
                                     </ul>
                                 </div>
                                 <div>
                                     <h3 className="font-semibold mb-4">Erkek</h3>
                                     <ul>
-                                        <li><a href="#">Bags</a></li>
-                                        <li><a href="#">Belts</a></li>
-                                        <li><a href="#">Cosmetics</a></li>
-                                        <li><a href="#">Bags</a></li>
-                                        <li><a href="#">Hats</a></li>
+                                        {menCategories.map((cat) => (
+                                            <li key={cat.id}>
+                                                <Link
+                                                    to={`/shop/${getGenderPath(cat.gender)}/${cat.title.toLowerCase()}/${cat.id}`}
+                                                    className="hover:text-blue-500 transition"
+                                                >
+                                                    {cat.title}
+                                                </Link>
+                                        </li>
+                                        ))}
                                     </ul>
                                 </div>
                             </div>

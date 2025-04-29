@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { categories, products } from "../data";
+import { products } from "../data";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { ProductList } from "../components/ProductList";
 import { Pagination } from "../components/Pagination";
 import { Icons } from "../components/Icons";
+import { useSelector } from "react-redux";
 
 export function Shop() {
     const shopProducts = new Array(15).fill(products[0]);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage, setProductsPerPage] = useState(4);
+
+    const categories = useSelector(state => state.product.categories);
+
+    const top5Categories = [...categories]
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 5);
 
     const updateProductsPerPage = () => {
         const width = window.innerWidth;
@@ -43,16 +50,16 @@ export function Shop() {
                     </div>
 
                     <div className="flex flex-col gap-4 mx-auto w-2/3 md:flex-row md:justify-evenly">
-                        {categories.map((category) => (
-                            <div key={category.id} className="relative">
+                        {top5Categories.map((category) => (
+                            <div key={category.id} className="relative group overflow-hidden rounded-lg shadow-md">
+                                
                                 <img
-                                    src={category.image}
+                                    src={category.img}
                                     alt={category.title}
                                     className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white">
+                                <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white text-center px-2">
                                     <h3 className="text-xl font-semibold">{category.title}</h3>
-                                    <p className="text-sm">{category.items} Items</p>
                                 </div>
                             </div>
                         ))}

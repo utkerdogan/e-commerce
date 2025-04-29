@@ -7,7 +7,7 @@ const initialState = {
     limit: 25,
     offset: 0,
     filter: '',
-    fetchState: 'NOT_FETCHED', // could be: NOT_FETCHED, FETCHING, FETCHED, FAILED
+    fetchState: 'NOT_FETCHED',
 };
 
 
