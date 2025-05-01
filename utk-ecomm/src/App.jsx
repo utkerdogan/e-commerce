@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { verifyUserThunk } from './store/actions/clientActions'
+import { fetchCategories, fetchProducts } from './store/actions/productActions'
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
 
     useEffect(() => {
         dispatch(verifyUserThunk());
+        dispatch(fetchCategories());
+        dispatch(fetchProducts());
     }, [dispatch]);
 
   return (

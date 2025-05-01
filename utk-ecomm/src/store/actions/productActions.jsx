@@ -53,3 +53,19 @@ export const fetchCategories = () => {
         }
     };
 };
+
+export const fetchProducts = () => {
+    return async (dispatch) => {
+        dispatch(setFetchState("loading"));
+        try {
+            const res = await fetch("https://workintech-fe-ecommerce.onrender.com/products");
+            const data = await res.json();
+            dispatch(setProductList(data.products));
+            dispatch(setTotal(data.total));
+            dispatch(setFetchState("fetched"));
+        } catch (err) {
+            console.error("Product fetch error", err);
+            dispatch(setFetchState("error"));
+        }
+    };
+};
