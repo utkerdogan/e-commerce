@@ -7,7 +7,7 @@ export function Pagination({totalProducts, productsPerPage, setCurrentPage}) {
         pages.push(i);
     }
     return(
-        <div className="flex justify-center mt-4 gap-4">
+        <div className="flex flex-wrap justify-center mt-4 gap-2 px-2 overflow-x-auto">
             {
                 pages.map((page, index) => {
                     return <button key={index} onClick={() => setCurrentPage(page)}>{page}</button>

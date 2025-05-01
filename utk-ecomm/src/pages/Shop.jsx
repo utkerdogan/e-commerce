@@ -5,10 +5,12 @@ import { ChevronRight } from "lucide-react";
 import { ProductList } from "../components/ProductList";
 import { Pagination } from "../components/Pagination";
 import { Icons } from "../components/Icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../store/actions/productActions";
 
 export function Shop() {
-    const shopProducts = new Array(15).fill(products[0]);
+    const dispatch = useDispatch();
+    const productList = useSelector(state => state.product.productList);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage, setProductsPerPage] = useState(4);
 
@@ -29,17 +31,22 @@ export function Shop() {
 
     useEffect(() => {
         updateProductsPerPage();
+        
         window.addEventListener("resize", updateProductsPerPage);
-    }, []);
+        dispatch(fetchProducts());
+        return () => {
+            window.removeEventListener("resize", updateProductsPerPage);
+        };
+    }, [dispatch]);
 
     const lastPostIndex = currentPage * productsPerPage;
     const firstPostIndex = lastPostIndex - productsPerPage;
-    const currentProducts = shopProducts.slice(firstPostIndex, lastPostIndex);
+    const currentProducts = productList.slice(firstPostIndex, lastPostIndex);
 
     return (
-        <div>
+        <div className="w-screen md:w-auto">
             <section>
-                <div className="h-auto w-screen bg-gray-100 flex flex-col md:w-auto pb-6">
+                <div className="h-auto bg-gray-100 flex flex-col md:w-auto pb-6">
                     <div className="flex flex-col items-center gap-4 md:justify-between md:flex-row px-10">
                         <h2 className="text-2xl font-bold pb-4 text-black">Shop</h2>
                         <div className="text-sm text-gray-500 mb-4 flex items-center">
@@ -73,9 +80,10 @@ export function Shop() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">Shop Now</h2>
                     <p className="text-gray-400 text-sm">Explore our full product catalog</p>
                 </div>
-                <ProductList shopProducts={currentProducts} />
+                <ProductList productList={currentProducts} />
                 <Pagination
-                    totalProducts={shopProducts.length}
+                    className="flex justify-center flex-wrap"
+                    totalProducts={productList.length}
                     productsPerPage={productsPerPage}
                     setCurrentPage={setCurrentPage}
                 />
