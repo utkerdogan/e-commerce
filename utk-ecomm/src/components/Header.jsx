@@ -38,6 +38,14 @@ export function Header() {
 
     const getGenderPath = (gender) => {
         return gender === 'k' ? 'kadin' : 'erkek';
+    };  
+    const handleHeaderCategoryClick = (category) => {
+        
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("category", category.id);
+        searchParams.set("page", "1");
+        const path = `/shop/${getGenderPath(category.gender)}/${category.title.toLowerCase()}/${category.id}?${searchParams.toString()}`;
+        history.push(path);
     };
 
     const handleLogout = () => {
@@ -89,13 +97,13 @@ export function Header() {
                                     <ul>
                                         {womenCategories.map((cat) => (
                                             <li key={cat.id}>
-                                            <Link
-                                                to={`/shop/${getGenderPath(cat.gender)}/${cat.title.toLowerCase()}/${cat.id}`}
-                                                className="hover:text-pink-500 transition"
-                                            >
-                                                {cat.title}
-                                            </Link>
-                                        </li>
+                                                <span
+                                                    onClick={() => handleHeaderCategoryClick(cat)}
+                                                    className="hover:text-pink-500 transition cursor-pointer"
+                                                >
+                                                    {cat.title}
+                                                </span>
+                                            </li>
                                         ))}
                                     </ul>
                                 </div>
@@ -104,13 +112,13 @@ export function Header() {
                                     <ul>
                                         {menCategories.map((cat) => (
                                             <li key={cat.id}>
-                                                <Link
-                                                    to={`/shop/${getGenderPath(cat.gender)}/${cat.title.toLowerCase()}/${cat.id}`}
-                                                    className="hover:text-blue-500 transition"
+                                                <span
+                                                    onClick={() => handleHeaderCategoryClick(cat)}
+                                                    className="hover:text-pink-500 transition cursor-pointer"
                                                 >
                                                     {cat.title}
-                                                </Link>
-                                        </li>
+                                                </span>
+                                            </li>
                                         ))}
                                     </ul>
                                 </div>

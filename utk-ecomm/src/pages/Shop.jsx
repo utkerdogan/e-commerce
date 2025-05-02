@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { products } from "../data";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { ProductList } from "../components/ProductList";
@@ -7,18 +6,26 @@ import { Pagination } from "../components/Pagination";
 import { Icons } from "../components/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/actions/productActions";
+import { FilterBar } from "../components/FilterBar";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 
 export function Shop() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const productList = useSelector(state => state.product.productList);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [productsPerPage, setProductsPerPage] = useState(4);
-
+    const total = useSelector(state => state.product.total);
     const categories = useSelector(state => state.product.categories);
+
+    const { categoryId } = useParams();
 
     const top5Categories = [...categories]
         .sort((a, b) => b.rating - a.rating)
         .slice(0, 5);
+    
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const currentPage = parseInt(queryParams.get("page") || "1", 10);
+    const [productsPerPage, setProductsPerPage] = useState(4);
 
     const updateProductsPerPage = () => {
         const width = window.innerWidth;
@@ -31,17 +38,40 @@ export function Shop() {
 
     useEffect(() => {
         updateProductsPerPage();
-        
         window.addEventListener("resize", updateProductsPerPage);
-        dispatch(fetchProducts());
         return () => {
             window.removeEventListener("resize", updateProductsPerPage);
         };
     }, [dispatch]);
 
-    const lastPostIndex = currentPage * productsPerPage;
-    const firstPostIndex = lastPostIndex - productsPerPage;
-    const currentProducts = productList.slice(firstPostIndex, lastPostIndex);
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const offset = (currentPage - 1) * productsPerPage;
+
+        if (categoryId) {
+            queryParams.set("category", categoryId);
+        }
+
+        queryParams.set("offset", offset);
+        queryParams.set("limit", productsPerPage);
+        dispatch(fetchProducts(queryParams.toString()));
+    }, [location.search, currentPage, productsPerPage, categoryId, dispatch]);
+
+    useEffect(() => {
+        window.scrollTo({ top: FilterBar, behavior: "smooth" });
+    }, [currentPage]);
+
+    const getGenderPath = (gender) => {
+        return gender === 'k' ? 'kadin' : 'erkek';
+    };  
+    const handleCategoryClick = (category) => {
+        
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("category", category.id);
+        searchParams.set("page", "1");
+        const path = `/shop/${getGenderPath(category.gender)}/${category.title.toLowerCase()}/${category.id}?${searchParams.toString()}`;
+        history.push(path);
+    };
 
     return (
         <div className="w-screen md:w-auto">
@@ -58,8 +88,11 @@ export function Shop() {
 
                     <div className="flex flex-col gap-4 mx-auto w-2/3 md:flex-row md:justify-evenly">
                         {top5Categories.map((category) => (
-                            <div key={category.id} className="relative group overflow-hidden rounded-lg shadow-md">
-                                
+                            <div
+                                key={category.id}
+                                className="relative group overflow-hidden rounded-lg shadow-md cursor-pointer"
+                                onClick={() => handleCategoryClick(category)}
+                            >
                                 <img
                                     src={category.img}
                                     alt={category.title}
@@ -73,6 +106,9 @@ export function Shop() {
                     </div>
                 </div>
             </section>
+            <section>
+                <FilterBar />
+            </section>
 
             <section className="px-4 py-12 w-auto bg-white items-center">
                 <div className="text-center mb-10">
@@ -80,12 +116,12 @@ export function Shop() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">Shop Now</h2>
                     <p className="text-gray-400 text-sm">Explore our full product catalog</p>
                 </div>
-                <ProductList productList={currentProducts} />
+                <ProductList productList={productList} />
+
                 <Pagination
-                    className="flex justify-center flex-wrap"
-                    totalProducts={productList.length}
+                    totalProducts={total}
                     productsPerPage={productsPerPage}
-                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
                 />
             </section>
 
