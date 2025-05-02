@@ -54,12 +54,24 @@ export const fetchCategories = () => {
     };
 };
 
-export const fetchProducts = () => {
+export const fetchProducts = (queryString = "", limit = 12, categoryId = null) => {
     return async (dispatch) => {
         dispatch(setFetchState("loading"));
+
         try {
-            const res = await fetch("https://workintech-fe-ecommerce.onrender.com/products");
+            const params = new URLSearchParams(queryString);
+
+            if (categoryId) {
+                params.set("category", categoryId);
+            }
+
+            const page = parseInt(params.get("page") || "1", 10);
+            const offset = (page - 1) * limit;
+
+            const url = `https://workintech-fe-ecommerce.onrender.com/products?${params.toString()}&offset=${offset}&limit=${limit}`;
+            const res = await fetch(url);
             const data = await res.json();
+            console.log("Fetch URL", url);
             dispatch(setProductList(data.products));
             dispatch(setTotal(data.total));
             dispatch(setFetchState("fetched"));
