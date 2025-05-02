@@ -32,7 +32,7 @@ export function Shop() {
         if (width < 768) {
             setProductsPerPage(4);
         } else {
-            setProductsPerPage(12);
+            setProductsPerPage(25);
         }
     };
 
@@ -51,9 +51,8 @@ export function Shop() {
         if (categoryId) {
             queryParams.set("category", categoryId);
         }
-
-        queryParams.set("offset", offset);
         queryParams.set("limit", productsPerPage);
+        queryParams.set("offset", offset);
         dispatch(fetchProducts(queryParams.toString()));
     }, [location.search, currentPage, productsPerPage, categoryId, dispatch]);
 

@@ -1,9 +1,10 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
-export function Pagination({ totalProducts, productsPerPage, currentPage, setCurrentPage }) {
+export function Pagination({ totalProducts, productsPerPage, currentPage }) {
     const totalPages = Math.ceil(totalProducts / productsPerPage);
     const history = useHistory();
+    const location = useLocation();
 
     const getPageNumbers = () => {
         const pages = [];
@@ -26,11 +27,14 @@ export function Pagination({ totalProducts, productsPerPage, currentPage, setCur
     const handleClick = (page) => {
         if (page === "...") return;
 
+        const offset = (page - 1) * productsPerPage;
         const params = new URLSearchParams(location.search);
 
         params.set("page", page);
+        params.set("offset", offset);
+        params.set("limit", productsPerPage);
+
         history.replace({ pathname: location.pathname, search: params.toString() });
-        
     };
 
     return (
