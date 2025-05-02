@@ -68,7 +68,7 @@ export const fetchProducts = (queryString = "", limit = 12, categoryId = null) =
             const page = parseInt(params.get("page") || "1", 10);
             const offset = (page - 1) * limit;
 
-            const url = `https://workintech-fe-ecommerce.onrender.com/products?${params.toString()}&offset=${offset}&limit=${limit}`;
+            const url = `https://workintech-fe-ecommerce.onrender.com/products?${params.toString()}&limit=${limit}&offset=${offset}`;
             const res = await fetch(url);
             const data = await res.json();
             console.log("Fetch URL", url);
