@@ -1,90 +1,97 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { BestSeller } from "../components/BestSeller";
+import React, { useEffect, useState } from "react";
+import { useParams, useHistory, useLocation, Link } from "react-router-dom";
 import { ChevronRight, Eye, Heart, ShoppingCart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setProductList } from "../store/actions/productActions";
 import { Icons } from "../components/Icons";
+import { BestSeller } from "../components/BestSeller";
 
 export function ProductDetail() {
-    const { id } = useParams();
+    const { productId } = useParams();
+    const history = useHistory();
+    const location = useLocation();
+    const dispatch = useDispatch();
     const [activeTab, setActiveTab] = useState("description");
 
-    const product = {
-        title: "Floating Phone",
-        reviews: 10,
-        stars: 4,
-        price: "$1,139.33",
-        availability: "In Stock",
-        description: `Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.`,
-        colors: ["bg-cyan-500", "bg-orange-500", "bg-teal-500", "bg-blue-900"],
-    };
+    const productList = useSelector(state => state.product.productList);
+    const [loading, setLoading] = useState(true);
+
+    const product = productList.find(p => p.id === Number(productId));
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        const fetchProduct = async () => {
+            if (!product) {
+                try {
+                    const res = await fetch(`https://workintech-fe-ecommerce.onrender.com/products/${productId}`);
+                    const data = await res.json();
+                    dispatch(setProductList([data]));
+                } catch (error) {
+                    console.error("Product fetch failed:", error);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                setLoading(false);
+            }
+        };
+
+        fetchProduct();
+    }, [productId, dispatch, product]);
+
+    if (loading || !product) {
+        return (
+            <div className="h-screen flex items-center justify-center">
+                <span className="text-gray-600">Loading...</span>
+            </div>
+        );
+    }
 
     return (
         <>
-            <section className="bg-gray-100 flex">
-                <div className=" mx-auto px-10 md:w-2/3 py-12 text-gray-900">
-                    <div className="flex flex-col items-center gap-4 md:justify-between md:flex-row">
+            <section className="bg-gray-100 py-10">
+                <div className="flex justify-between items-center mb-4 mx-auto px-6 md:w-4/5 text-gray-900">
+                        <button onClick={() => {
+                            if (location.state?.from) {
+                                history.push(location.state.from);
+                            } else {
+                                history.push("/shop");
+                            }
+                        }} className="text-sm text-blue-600 hover:underline bg-white">
+                            ← Back
+                        </button>
                         <div className="text-sm text-gray-500 mb-4 flex items-center">
                             <Link to="/" className="hover:underline text-black">Home</Link>
                             <ChevronRight />
-                            <span className="text-gray-500 font-medium">Shop</span>
+                            <span className="text-gray-500 font-medium">Product Detail</span>
                         </div>
                     </div>
-                    <div className="flex flex-col md:flex-row gap-8">
-
+                <div className="flex mx-auto px-6 md:w-4/5 text-gray-900 gap-8">
                     <div className="w-full md:w-1/2">
-                        <img
-                            src={`https://picsum.photos/600/600?random=${id}`}
-                            alt={product.title}
-                            className="rounded-md w-full object-cover"
-                        />
-                        <div className="flex gap-2 mt-4">
-                            {[1, 2].map((i) => (
-                                <img
-                                    key={i}
-                                    src={`https://picsum.photos/100/100?random=${+id + i}`}
-                                    alt={`thumb-${i}`}
-                                    className="w-14 h-14 md:w-20 md:h-20 object-cover rounded cursor-pointer"
-                                />
-                            ))}
+                        <img src={product.images?.[0]?.url} alt={product.name} className="rounded-md w-full object-cover" />
+                    </div>
+                    <div className="flex flex-col gap-10">
+                        <div className="flex flex-col w-full md:w-1/2 space-y-4">
+                            <h2 className="text-2xl font-bold">{product.name}</h2>
+                            <p className="text-gray-600 text-sm">{product.description}</p>
+                            <p className="text-2xl font-semibold text-gray-900">{product.price.toFixed(2)} ₺</p>
+                            <p className="text-sm">Stock: {product.stock}</p>
+                            <p className="text-sm">Rating: {product.rating}</p>
+                            <p className="text-sm">Sold: {product.sell_count}</p>
+                        </div>
+                        <div className="w-full md:w-1/2 flex flex-col gap-4">
+                            <div className="flex mt-4 items-center gap-8">
+                                <button className="bg-blue-500 text-white px-6 rounded hover:bg-blue-600 transition">
+                                    Select Options
+                                </button>
+                                <Heart />
+                                <ShoppingCart /> 
+                                <Eye />
+                            </div>
                         </div>
                     </div>
-
-                    <div className="w-full md:w-1/2 flex flex-col gap-4">
-                        <h2 className="text-2xl font-bold">{product.title}</h2>
-                        <div className="flex items-center gap-1 text-yellow-400">
-                            {Array.from({ length: product.stars }, (_, i) => (
-                                <span key={i}>★</span>
-                            ))}
-                            {Array.from({ length: 5 - product.stars }, (_, i) => (
-                                <span key={i}>☆</span>
-                            ))}
-                            <span className="ml-2 text-sm text-gray-600">{product.reviews} Reviews</span>
-                        </div>
-                        <p className="text-2xl font-semibold text-gray-900">{product.price}</p>
-                        <p>
-                            Availability:{" "}
-                            <span className="text-green-600 font-semibold">{product.availability}</span>
-                        </p>
-                        <p className="text-gray-600 text-sm">{product.description}</p>
-                        <div className="flex gap-4 mt-3">
-                            {product.colors.map((color, i) => (
-                                <span key={i} className={`w-5 h-5 rounded-full ${color}`}></span>
-                            ))}
-                        </div>
-                        <div className="flex mt-4 items-center gap-8">
-                            <button className="bg-blue-500 text-white px-6 rounded hover:bg-blue-600 transition">
-                                Select Options
-                            </button>
-                            <Heart />
-                            <ShoppingCart /> 
-                            <Eye />
-                        </div>
-                    </div>
-                </div>
                 </div>
             </section>
-
             <section className="bg-white">
                 <div className="mx-auto md:w-4/5 pt-6 px-10">
                     <div className="flex justify-center gap-6 text-sm font-semibold text-gray-700">
@@ -118,7 +125,7 @@ export function ProductDetail() {
                     <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-8 text-gray-700">
                         {/* Left */}
                         <div className="flex-1">
-                            <img src={`https://picsum.photos/300/400?random=${+id + 3}`} alt="info" className="rounded" />
+                            <img src={`https://picsum.photos/300/400?random=${+productId + 3}`} alt="info" className="rounded" />
                         </div>
 
                         {/* Middle */}
@@ -146,7 +153,6 @@ export function ProductDetail() {
                     </div>
                 </div>
             </section>
-
             <section className="bg-gray-100 md:flex-row items-center">
                 <div className="flex flex-col  items-center">
                     <h2 className="text-2xl font-bold text-gray-900 py-8 ">BESTSELLER PRODUCTS</h2>
