@@ -38,7 +38,7 @@ function App() {
           <Route path="/team" component={Team} />
           <Route path="/signup" component={SignUp} />
           <Route path="/login" component={Login} />
-          <Route path="/product/:id" component={ProductDetail} />
+          <Route path="/product/:productId" component={ProductDetail} />
         </Switch>
         <ToastContainer />
       </Layout>

@@ -25,7 +25,7 @@ export function Shop() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const currentPage = parseInt(queryParams.get("page") || "1", 10);
-    const [productsPerPage, setProductsPerPage] = useState(4);
+    const [productsPerPage, setProductsPerPage] = useState(12);
 
     const updateProductsPerPage = () => {
         const width = window.innerWidth;
@@ -57,7 +57,7 @@ export function Shop() {
     }, [location.search, currentPage, productsPerPage, categoryId, dispatch]);
 
     useEffect(() => {
-        window.scrollTo({ top: FilterBar, behavior: "smooth" });
+        window.scrollTo({ top: FilterBar.current, behavior: "smooth" });
     }, [currentPage]);
 
     const getGenderPath = (gender) => {
