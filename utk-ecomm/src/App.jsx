@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { verifyUserThunk } from './store/actions/clientActions'
 import { fetchCategories, fetchProducts } from './store/actions/productActions'
+import { ShoppingCart } from './pages/ShoppingCart'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/shop" component={Shop} />
           <Route path="/shop/:gender/:categoryName/:categoryId" component={Shop} />
+          <Route path="/shopping-cart" component={ShoppingCart} />
           <Route path="/contact" component={Contact} />
           <Route path="/about-us" component={AboutUs} />
           <Route path="/team" component={Team} />

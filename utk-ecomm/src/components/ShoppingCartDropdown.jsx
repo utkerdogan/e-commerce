@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
+import { Link, useHistory } from "react-router-dom";
+import {  ShoppingCart } from "lucide-react";
 
 export const ShoppingCartDropdown = () => {
     const [hovered, setHovered] = useState(false);
@@ -17,7 +17,9 @@ export const ShoppingCartDropdown = () => {
             onMouseLeave={() => setHovered(false)}
         >
             <div className="relative cursor-pointer">
-                <ShoppingCart />
+                <Link to="/shopping-cart">
+                    <ShoppingCart />
+                </Link>
                 {totalCount > 0 && (
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                         {totalCount}
@@ -44,7 +46,7 @@ export const ShoppingCartDropdown = () => {
                                     <div className="flex-1">
                                         <p className="font-medium text-sm">{item.product.name}</p>
                                         <p className="text-sm text-gray-500">Adet: {item.count}</p>
-                                            {item.product.price * item.count}
+                                            {(item.product.price * item.count).toFixed(2)} TL
                                     </div>
                                 </div>
                             ))
@@ -56,8 +58,8 @@ export const ShoppingCartDropdown = () => {
                     {cart.length > 0 && (
                         <div className="mt-4 flex justify-between items-center">
                             <button
-                                onClick={() => history.push("/cart")}
-                                className="px-4 py-2 border rounded text-gray-700"
+                                onClick={() => history.push("/shopping-cart")}
+                                className="px-4 py-2 border-2 rounded text-orange-500 bg-white border-orange-500"
                             >
                                 Sepete Git
                             </button>
