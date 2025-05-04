@@ -172,7 +172,7 @@ export function Header() {
                     <span onClick={() => history.push("/")} className="text-gray-600">Home</span>
                     <span onClick={() => history.push("/shop")} className="text-gray-600">Product</span>
                     <span className="text-gray-600">Pricing</span>
-                    <span className="text-gray-600">Contact</span>
+                    <span className="text-gray-600" onClick={() => history.push("/contact")}>Contact</span>
                 </nav>
             )}
         </div>

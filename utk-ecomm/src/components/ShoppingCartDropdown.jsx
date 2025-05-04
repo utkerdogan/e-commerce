@@ -17,9 +17,7 @@ export const ShoppingCartDropdown = () => {
             onMouseLeave={() => setHovered(false)}
         >
             <div className="relative cursor-pointer">
-                <Link to="/shopping-cart">
                     <ShoppingCart />
-                </Link>
                 {totalCount > 0 && (
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                         {totalCount}
@@ -28,7 +26,7 @@ export const ShoppingCartDropdown = () => {
             </div>
 
             {hovered && (
-                <div className="absolute right-0 w-96 bg-white rounded-lg shadow-lg z-50 p-4">
+                <div className="absolute right-0 w-[65vw] max-w-md bg-white rounded-lg shadow-lg z-50 p-4">
                     <h3 className="text-lg font-semibold mb-4">
                         Sepetim ({cart.length} Ürün)
                     </h3>

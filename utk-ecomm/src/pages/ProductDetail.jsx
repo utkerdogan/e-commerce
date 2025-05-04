@@ -51,7 +51,7 @@ export function ProductDetail() {
 
 
     return (
-        <>
+        <div className="w-screen md:w-auto">
             <section className="bg-gray-100 py-10">
                 <div className="flex justify-between items-center mb-4 mx-auto px-6 md:w-4/5 text-gray-900">
                         <button onClick={() => {
@@ -73,7 +73,7 @@ export function ProductDetail() {
                     <div className="w-full md:w-1/3">
                         <img src={product.images?.[0]?.url} alt={product.name} className="rounded-md w-full object-cover" />
                     </div>
-                    <div className="flex flex-col gap-10 md:w-1/2">
+                    <div className="flex flex-col text-center md:text-start gap-10 md:w-1/2">
                         <div className="flex flex-col w-full md:w-1/2 space-y-4">
                             <h2 className="text-2xl font-bold">{product.name}</h2>
                             <p className="text-gray-600 text-sm">{product.description}</p>
@@ -162,6 +162,6 @@ export function ProductDetail() {
             <section className="py-16 bg-gray-100">
                 <Icons />
             </section>
-        </>
+        </div>
     );
 }
