@@ -1,10 +1,11 @@
 import React, {  useEffect, useState } from "react";
-import { ChevronDown, Facebook, Heart, Instagram, Mail, Menu, Phone, Search, ShoppingCart, Twitter, User, X, Youtube } from "lucide-react";
-import { useHistory, useLocation, Link } from "react-router-dom";
+import { ChevronDown, Facebook, Heart, Instagram, Mail, Menu, Phone, Search, Twitter, User, X, Youtube } from "lucide-react";
+import { useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../store/actions/clientActions";
 import Gravatar from 'react-gravatar';
 import { fetchCategories } from "../store/actions/productActions";
+import { ShoppingCartDropdown } from "./ShoppingCartDropdown";
 
 export function Header() {
 
@@ -149,7 +150,7 @@ export function Header() {
                                 </>
                             )}
                             <Search />
-                            <ShoppingCart />
+                            <ShoppingCartDropdown />
                             <Heart />
                         </>
                     )}

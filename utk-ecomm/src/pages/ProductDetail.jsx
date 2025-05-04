@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProductList } from "../store/actions/productActions";
 import { Icons } from "../components/Icons";
 import { BestSeller } from "../components/BestSeller";
+import useAddToCart from "../hooks/useAddToCart";
 
 export function ProductDetail() {
     const { productId } = useParams();
@@ -12,6 +13,7 @@ export function ProductDetail() {
     const location = useLocation();
     const dispatch = useDispatch();
     const [activeTab, setActiveTab] = useState("description");
+    const addToCart = useAddToCart();
 
     const productList = useSelector(state => state.product.productList);
     const [loading, setLoading] = useState(true);
@@ -47,6 +49,7 @@ export function ProductDetail() {
         );
     }
 
+
     return (
         <>
             <section className="bg-gray-100 py-10">
@@ -66,11 +69,11 @@ export function ProductDetail() {
                             <span className="text-gray-500 font-medium">Product Detail</span>
                         </div>
                     </div>
-                <div className="flex mx-auto px-6 md:w-4/5 text-gray-900 gap-8">
-                    <div className="w-full md:w-1/2">
+                <div className="flex flex-col md:flex-row justify-evenly mx-auto px-6 md:w-4/5 text-gray-900 gap-10">
+                    <div className="w-full md:w-1/3">
                         <img src={product.images?.[0]?.url} alt={product.name} className="rounded-md w-full object-cover" />
                     </div>
-                    <div className="flex flex-col gap-10">
+                    <div className="flex flex-col gap-10 md:w-1/2">
                         <div className="flex flex-col w-full md:w-1/2 space-y-4">
                             <h2 className="text-2xl font-bold">{product.name}</h2>
                             <p className="text-gray-600 text-sm">{product.description}</p>
@@ -80,9 +83,9 @@ export function ProductDetail() {
                             <p className="text-sm">Sold: {product.sell_count}</p>
                         </div>
                         <div className="w-full md:w-1/2 flex flex-col gap-4">
-                            <div className="flex mt-4 items-center gap-8">
-                                <button className="bg-blue-500 text-white px-6 rounded hover:bg-blue-600 transition">
-                                    Select Options
+                            <div className="flex mt-4 w=1/3 justify-between items-center">
+                                <button className="bg-blue-500 text-white px-6 rounded hover:bg-blue-600 transition" onClick={() => addToCart(product)}>
+                                    Sepete Ekle
                                 </button>
                                 <Heart />
                                 <ShoppingCart /> 
@@ -121,21 +124,18 @@ export function ProductDetail() {
                         </button>
                     </div>
 
-                    {/* Tab Content */}
                     <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-8 text-gray-700">
-                        {/* Left */}
+                        
                         <div className="flex-1">
                             <img src={`https://picsum.photos/300/400?random=${+productId + 3}`} alt="info" className="rounded" />
                         </div>
 
-                        {/* Middle */}
                         <div className="flex-1">
                             <h3 className="font-bold mb-2 text-sm">the quick fox jumps over</h3>
                             <p>{product.description}</p>
                             <p className="mt-4">{product.description}</p>
                         </div>
 
-                        {/* Right */}
                         <div className="flex-1 w-full space-y-4">
                             <h3 className="font-bold text-2xl">the quick fox jumps over</h3>
                             <ul className="space-y-1 text-base">
