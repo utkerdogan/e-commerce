@@ -73,7 +73,7 @@ export function ProductDetail() {
                     <div className="w-full md:w-1/3">
                         <img src={product.images?.[0]?.url} alt={product.name} className="rounded-md w-full object-cover" />
                     </div>
-                    <div className="flex flex-col gap-10 md:w-1/2">
+                    <div className="flex flex-col text-center md:text-start gap-10 md:w-2/3">
                         <div className="flex flex-col w-full md:w-1/2 space-y-4">
                             <h2 className="text-2xl font-bold">{product.name}</h2>
                             <p className="text-gray-600 text-sm">{product.description}</p>

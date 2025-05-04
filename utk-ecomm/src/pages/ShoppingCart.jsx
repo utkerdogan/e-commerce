@@ -44,10 +44,10 @@ export const ShoppingCart = () => {
     );
 
     return (
-        <div className="px-6 mx-auto bg-gray-100 h-screen">
+        <div className="px-6 mx-auto bg-gray-100 h-screen w-screen md:w-auto">
             <h2 className="text-2xl font-bold mb-4 text-black">Sepetiniz</h2>
             {cart.map((item, index) => (
-                <div key={index} className="flex items-center justify-between border-b py-4 text-black bg-white">
+                <div key={index} className="flex flex-col md:flex-row items-center justify-between border-b py-4 text-black bg-white">
                     
                     <div className="flex items-center gap-4 pl-6">
                         <input

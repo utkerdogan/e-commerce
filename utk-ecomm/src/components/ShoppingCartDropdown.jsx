@@ -17,9 +17,7 @@ export const ShoppingCartDropdown = () => {
             onMouseLeave={() => setHovered(false)}
         >
             <div className="relative cursor-pointer">
-                <Link to="/shopping-cart">
                     <ShoppingCart />
-                </Link>
                 {totalCount > 0 && (
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                         {totalCount}
@@ -28,7 +26,7 @@ export const ShoppingCartDropdown = () => {
             </div>
 
             {hovered && (
-                <div className="absolute right-0 w-96 bg-white rounded-lg shadow-lg z-50 p-4">
+                <div className="absolute right-0 w-[70vw] md:max-w-md bg-white rounded-lg shadow-lg z-50 p-4">
                     <h3 className="text-lg font-semibold mb-4">
                         Sepetim ({cart.length} Ürün)
                     </h3>
@@ -38,16 +36,25 @@ export const ShoppingCartDropdown = () => {
                         ) : (
                             cart.map((item, index) => (
                                 <div key={index} className="flex items-center py-2">
-                                    <img
-                                        src={item.product.images?.[0]?.url}
-                                        alt={item.product.name}
-                                        className="w-16 h-16 object-cover rounded mr-4"
-                                    />
-                                    <div className="flex-1">
-                                        <p className="font-medium text-sm">{item.product.name}</p>
-                                        <p className="text-sm text-gray-500">Adet: {item.count}</p>
-                                            {(item.product.price * item.count).toFixed(2)} TL
+                                    <Link
+                                        to={{
+                                            pathname: `/product/${item.product.id}`,
+                                            state: { from: location.pathname + location.search }
+                                        }}
+                                    >
+                                    <div className="flex">
+                                        <img
+                                            src={item.product.images?.[0]?.url}
+                                            alt={item.product.name}
+                                            className="w-16 h-16 object-cover rounded mr-4"
+                                        />
+                                        <div className="flex-1">
+                                            <p className="font-medium text-sm">{item.product.name}</p>
+                                            <p className="text-sm text-gray-500">Adet: {item.count}</p>
+                                                {(item.product.price * item.count).toFixed(2)} TL
+                                        </div>
                                     </div>
+                                    </Link>
                                 </div>
                             ))
                         )}
